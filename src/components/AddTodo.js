@@ -45,6 +45,7 @@ export default function AddItem(props) {
       <input
         className="input"
         type="number"
+        min="0"
         value={todo.cost}
         placeholder="价格"
         name="cost"
