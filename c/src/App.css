@@ -1,0 +1,53 @@
+.container {
+  margin: 0 auto;
+  margin-top: 30px;
+  padding: 36px;
+  width: 40%;
+  min-width: 800px;
+  background: #ffffff;
+  border: 1px solid #0288d1;
+  border-radius: 18px;
+}
+
+.row {
+  margin: 0 auto;
+}
+
+.input {
+  position: relative;
+  margin-right: 10px;
+  padding: 0 8px;
+  min-width: 200px;
+  height: 32px;
+  background: #fff;
+  outline: 0;
+  color: #6e7783;
+  border: 1px solid #757575;
+  border-radius: 4px;
+}
+
+.addBtn {
+  float: right;
+}
+
+.addBtn:hover {
+  cursor: pointer;
+}
+
+.lastLine td {
+  border-bottom: none;
+  border-width: 1px 0 0 0;
+  background: transparent;
+}
+
+.right {
+  text-align: right;
+}
+
+td.noData {
+  border-width: 1px 1px 1px 1px;
+}
+
+.complete {
+  text-decoration: line-through;
+}
