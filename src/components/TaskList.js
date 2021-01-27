@@ -6,7 +6,7 @@ export default function TaskList(props) {
   const handleInputChange = (todo) => {
     return (event) => {
       todo.complete = event.target.checked
-      props.editTask(todo.name, todo)
+      props.editTask(todo)
     }
   }
 

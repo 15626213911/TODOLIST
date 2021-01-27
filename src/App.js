@@ -16,20 +16,16 @@ function App() {
 
   const convertCost = (from, to, cost) => (from === to ? cost : cost * rateDict[from][to])
 
-  const editTask = (name, updatedTask) => {
-    setTodolist(todolist.map((todo) => (todo.name === name ? updatedTask : todo)))
+  const editTask = (updatedTask) => {
+    setTodolist(todolist.map((todo) => (todo.id === updatedTask.id ? updatedTask : todo)))
   }
 
   const addTask = (todo) => {
     todo.cny = convertCost(currencyName[todo.currencyType], 'CNY', todo.cost)
     todo.rub = convertCost(currencyName[todo.currencyType], 'RUB', todo.cost)
     todo.usd = convertCost(currencyName[todo.currencyType], 'USD', todo.cost)
-    let ifExist = todolist.some((origin) => origin.name === todo.name)
-    if (ifExist) {
-      editTask(todo.name, todo)
-    } else {
-      setTodolist([...todolist, todo])
-    }
+    todo.id = todolist.length + 1
+    setTodolist([...todolist, todo])
   }
 
   useEffect(() => {

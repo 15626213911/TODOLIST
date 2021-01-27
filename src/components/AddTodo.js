@@ -8,6 +8,7 @@ export default function AddItem(props) {
   ]
 
   const initialTodo = {
+    id: 0,
     name: '',
     currencyType: 1,
     cost: '',
