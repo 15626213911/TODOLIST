@@ -1,20 +1,22 @@
 import { useState } from 'react'
 import { isNumber, isString, trimStr } from '../js/utils.js'
 
-export default function AddItem(props) {
-  const currencyType = [
-    { id: 1, name: 'RUB' },
-    { id: 2, name: 'CNY' },
-    { id: 3, name: 'USD' },
-  ]
+const currencyType = [
+  { id: 1, name: 'RUB' },
+  { id: 2, name: 'CNY' },
+  { id: 3, name: 'USD' },
+]
 
-  const initialTodo = {
-    id: 0,
-    name: '',
-    currencyType: 1,
-    cost: '',
-    complete: false,
-  }
+const initialTodo = {
+  id: 0,
+  name: '',
+  currencyType: 1,
+  cost: '',
+  complete: false,
+}
+
+export default function AddTodo(props) {
+  const { addTask } = props
   const [todo, setTodo] = useState(initialTodo)
 
   const handleInputChange = (event) => {
@@ -28,7 +30,7 @@ export default function AddItem(props) {
   const handleSubmit = (event) => {
     event.preventDefault()
     if (isString(trimStr(todo.name)) && isNumber(todo.cost) && isNumber(todo.currencyType)) {
-      props.addTask(todo)
+      addTask(todo)
       setTodo(initialTodo)
     }
   }

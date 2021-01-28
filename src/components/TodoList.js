@@ -3,12 +3,12 @@ import TaskList from './TaskList'
 import { isNumber } from '../js/utils'
 
 export default function TodoList(props) {
+  const { todolist, editTask } = props
   const totalData = useMemo(() => {
     const total = {
       complete: { cny: 0, rub: 0, usd: 0 },
       todo: { cny: 0, rub: 0, usd: 0 },
     }
-    let todolist = props.todolist
     if (
       todolist.length > 0 &&
       todolist.every((todo) => isNumber(todo.cny) && isNumber(todo.rub) && isNumber(todo.usd))
@@ -26,21 +26,21 @@ export default function TodoList(props) {
       })
     }
     return total
-  }, [props.todolist])
+  }, [todolist])
 
   return (
     <Fragment>
       <TaskList
         complete={false}
-        todolist={props.todolist}
+        todolist={todolist}
         total={totalData.todo}
-        editTask={props.editTask}
+        editTask={editTask}
       ></TaskList>
       <TaskList
         complete={true}
-        todolist={props.todolist}
+        todolist={todolist}
         total={totalData.complete}
-        editTask={props.editTask}
+        editTask={editTask}
       ></TaskList>
     </Fragment>
   )

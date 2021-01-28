@@ -4,28 +4,31 @@ import AddTodo from './components/AddTodo'
 import TodoList from './components/TodoList'
 import './App.css'
 
-function App() {
-  const currencyName = {
-    1: 'RUB',
-    2: 'CNY',
-    3: 'USD',
-  }
+const currencyName = {
+  1: 'RUB',
+  2: 'CNY',
+  3: 'USD',
+}
 
+function App() {
   const [todolist, setTodolist] = useState([])
   const [rateDict, setRateDict] = useState({ CNY: {}, RUB: {}, USD: {} })
 
   const convertCost = (from, to, cost) => (from === to ? cost : cost * rateDict[from][to])
 
-  const editTask = (updatedTask) => {
+  const handleEditTask = (updatedTask) => {
     setTodolist(todolist.map((todo) => (todo.id === updatedTask.id ? updatedTask : todo)))
   }
 
-  const addTask = (todo) => {
-    todo.cny = convertCost(currencyName[todo.currencyType], 'CNY', todo.cost)
-    todo.rub = convertCost(currencyName[todo.currencyType], 'RUB', todo.cost)
-    todo.usd = convertCost(currencyName[todo.currencyType], 'USD', todo.cost)
-    todo.id = todolist.length + 1
-    setTodolist([...todolist, todo])
+  const handleAddTask = (todo) => {
+    const newTask = {
+      ...todo,
+      cny: convertCost(currencyName[todo.currencyType], 'CNY', todo.cost),
+      rub: convertCost(currencyName[todo.currencyType], 'RUB', todo.cost),
+      usd: convertCost(currencyName[todo.currencyType], 'USD', todo.cost),
+      id: todolist.length + 1,
+    }
+    setTodolist([...todolist, newTask])
   }
 
   useEffect(() => {
@@ -57,7 +60,7 @@ function App() {
   return (
     <div className="container">
       <div className="row">
-        <AddTodo addTask={addTask}></AddTodo>
+        <AddTodo addTask={handleAddTask}></AddTodo>
         <div className="right">
           <span>{rateDict.CNY.RUB ? rateDict.CNY.RUB.toFixed(3) : '...'}₽/¥ </span>
           <span>{rateDict.USD.RUB ? rateDict.USD.RUB.toFixed(3) : '...'}₽/$ </span>
@@ -65,7 +68,7 @@ function App() {
         </div>
       </div>
       <div className="row">
-        <TodoList todolist={todolist} editTask={editTask}></TodoList>
+        <TodoList todolist={todolist} editTask={handleEditTask}></TodoList>
       </div>
     </div>
   )
