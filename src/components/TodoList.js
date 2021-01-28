@@ -1,11 +1,8 @@
 import React, { useMemo, Fragment } from 'react'
 import TaskList from './TaskList'
+import { isNumber } from '../js/utils'
 
 export default function TodoList(props) {
-  const isNumber = (num) => {
-    return num !== undefined && num !== '' && !isNaN(num)
-  }
-
   const totalData = useMemo(() => {
     const total = {
       complete: { cny: 0, rub: 0, usd: 0 },

@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { isNumber, isString } from '../js/utils.js'
 
 export default function AddItem(props) {
   const currencyType = [
@@ -17,18 +18,19 @@ export default function AddItem(props) {
   const [todo, setTodo] = useState(initialTodo)
 
   const handleInputChange = (event) => {
-    const { name, value } = event.target
+    let { name, value } = event.target
+    if (name === 'cost' || name === 'currencyType') {
+      value = Number(value)
+    }
     setTodo({ ...todo, [name]: value })
   }
 
   const handleSubmit = (event) => {
     event.preventDefault()
-    if (!todo.name || !todo.cost) {
-      return
+    if (isString(todo.name) && isNumber(todo.cost) && isNumber(todo.currencyType)) {
+      props.addTask(todo)
+      setTodo(initialTodo)
     }
-    todo.cost = Number(todo.cost)
-    props.addTask(todo)
-    setTodo(initialTodo)
   }
 
   return (
