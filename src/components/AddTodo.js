@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { isNumber, isString } from '../js/utils.js'
+import { isNumber, isString, trimStr } from '../js/utils.js'
 
 export default function AddItem(props) {
   const currencyType = [
@@ -27,7 +27,7 @@ export default function AddItem(props) {
 
   const handleSubmit = (event) => {
     event.preventDefault()
-    if (isString(todo.name) && isNumber(todo.cost) && isNumber(todo.currencyType)) {
+    if (isString(trimStr(todo.name)) && isNumber(todo.cost) && isNumber(todo.currencyType)) {
       props.addTask(todo)
       setTodo(initialTodo)
     }
