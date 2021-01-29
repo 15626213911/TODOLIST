@@ -2,8 +2,7 @@ import React, { useMemo, Fragment } from 'react'
 import TaskList from './TaskList'
 import { isNumber } from '../js/utils'
 
-export default function TodoList(props) {
-  const { todolist, editTask } = props
+export default function TodoList({ todolist, editTask }) {
   const totalData = useMemo(() => {
     const total = {
       complete: { cny: 0, rub: 0, usd: 0 },
@@ -13,17 +12,16 @@ export default function TodoList(props) {
       todolist.length > 0 &&
       todolist.every((todo) => isNumber(todo.cny) && isNumber(todo.rub) && isNumber(todo.usd))
     ) {
-      todolist.forEach((item) => {
-        if (item.complete) {
-          total.complete.cny += item.cny
-          total.complete.rub += item.rub
-          total.complete.usd += item.usd
-        } else {
-          total.todo.cny += item.cny
-          total.todo.rub += item.rub
-          total.todo.usd += item.usd
-        }
-      })
+      for (let k in total.complete) {
+        total.complete[k] = todolist.reduce((total, cur) => {
+          return cur.complete ? total + cur[k] : total
+        }, 0)
+      }
+      for (let k in total.todo) {
+        total.todo[k] = todolist.reduce((total, cur) => {
+          return cur.complete ? total : total + cur[k]
+        }, 0)
+      }
     }
     return total
   }, [todolist])

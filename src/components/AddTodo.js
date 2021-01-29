@@ -15,8 +15,7 @@ const initialTodo = {
   complete: false,
 }
 
-export default function AddTodo(props) {
-  const { addTask } = props
+export default function AddTodo({ addTask }) {
   const [todo, setTodo] = useState(initialTodo)
 
   const handleInputChange = (event) => {

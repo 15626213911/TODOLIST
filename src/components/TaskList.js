@@ -1,6 +1,4 @@
-export default function TaskList(props) {
-  const { complete, todolist, editTask, total } = props
-
+export default function TaskList({ complete, todolist, editTask, total }) {
   let noCorrectData = complete
     ? todolist.every((todo) => !todo.complete)
     : todolist.every((todo) => todo.complete)
@@ -10,6 +8,25 @@ export default function TaskList(props) {
       editTask({ ...todo, complete: event.target.checked })
     }
   }
+
+  const listElements = []
+  todolist.forEach((todo, index) => {
+    if (complete === todo.complete) {
+      listElements.push(
+        <tr key={index}>
+          <td width="30px">
+            <input type="checkbox" checked={todo.complete} onChange={handleInputChange(todo)} />
+          </td>
+          <td width="30%" className={todo.complete ? 'complete' : ''}>
+            {todo.name}
+          </td>
+          <td>￥{todo.cny}</td>
+          <td>₽{todo.rub}</td>
+          <td>${todo.usd}</td>
+        </tr>
+      )
+    }
+  })
 
   return (
     <div>
@@ -23,27 +40,7 @@ export default function TaskList(props) {
               </td>
             </tr>
           ) : (
-            todolist.map((todo, index) => {
-              if (complete === todo.complete) {
-                return (
-                  <tr key={index}>
-                    <td width="30px">
-                      <input
-                        type="checkbox"
-                        checked={todo.complete}
-                        onChange={handleInputChange(todo)}
-                      />
-                    </td>
-                    <td width="30%" className={todo.complete ? 'complete' : ''}>
-                      {todo.name}
-                    </td>
-                    <td>￥{todo.cny}</td>
-                    <td>₽{todo.rub}</td>
-                    <td>${todo.usd}</td>
-                  </tr>
-                )
-              }
-            })
+            listElements
           )}
           <tr className="lastLine">
             <td colSpan={2}>{complete ? '一共花了：' : '将要花费：'}</td>
